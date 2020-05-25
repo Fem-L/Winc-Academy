@@ -1,0 +1,164 @@
+body {
+  background-color: #e6f4f3;
+  text-align: center;
+  font-family: 'Source Sans Pro', sans-serif;
+  color: #060606;
+}
+
+h1 {
+  font-family: 'Waiting for the Sunrise', cursive;
+  color: #274747;
+  font-size: 3rem;
+  font-weight: normal;
+  line-height: 1;
+  margin: 0 auto;
+  padding: 0.5rem;
+}
+
+h2 {
+  color: #8aa8a3;
+}
+
+h3 {
+  color: #8aa8a3;
+  margin-bottom: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #274747;
+}
+
+header {
+  padding: 1.9rem 0;
+  background-color: #8aa8a3;
+}
+
+.ondertitel {
+  font-size: 1rem;
+  color: white;
+  padding: 0 1rem;
+}
+
+nav {
+  margin-top: 0.3rem;
+  border-top: solid 1px #274747;
+  padding: 1.25rem;
+}
+
+.nav-btn {
+  display: inline-block;
+  list-style: none;
+  background-color: #b5d4d2;
+  border: solid 1px #274747;
+  border-radius: 8px;
+  padding: 0.6rem;
+  width: 100px;
+  margin: 0 1.25rem;
+  cursor: pointer;
+}
+
+.nav-btn:hover {
+  background-color: #8aa8a3;
+}
+
+.profiel {
+  border-bottom: solid 1px #274747;
+}
+
+.profiel-img {
+  padding: 0.25rem;
+  margin: auto;
+  Border: solid 2px #8aa8a3;
+  border-radius: 25px;
+  width: 150px;
+}
+
+.hobbies {
+  line-height: 1.5;
+  text-align: center;
+  width: 70%;
+  margin: auto;
+}
+
+.hobbies-item {
+  list-style: none;
+}
+
+.hobbies-img {
+  margin: auto;
+  padding: 0.25rem;
+  Border: solid 2px #8aa8a3;
+  border-radius: 25px;
+  width: 100px;
+}
+
+.horizontal-img {
+  display: block;
+  margin: auto;
+  width: 200px;
+}
+
+figcaption {
+  margin-bottom: 1.25rem;
+}
+
+main {
+  border-bottom: solid 1px #274747;
+  margin-bottom: 0.3rem;
+}
+
+footer {
+  padding: 1rem 0;
+  background-color: #8aa8a3;
+}
+
+/* Media Queries */
+
+@media(min-width: 1024px) {
+  body {
+    background-color: #f8cdcd;
+  }
+
+  header {
+    padding: 3rem 0 3rem;
+  }
+
+  h1 {
+    color: indianred;
+    font-size: 1rem;
+    line-height: 2;
+  }
+
+  h2 {
+    color: indianred;
+  }
+
+  h3 {
+    color: indianred;
+  }
+
+  .ondertitel {
+    font-size: 3rem;
+  }
+
+  .profiel-img {
+    width: 300px;
+  }
+
+  .hobbies {
+    line-height: 2;
+  }
+
+  .hobbies-img {
+    width: 200px;
+  }
+
+  .horizontal-img {
+    width: 300px;
+  }
+
+  footer {
+    padding: 1.9rem 0;
+  }
+}
