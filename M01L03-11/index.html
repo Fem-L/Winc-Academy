@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="styles.css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Gentium+Basic|Source+Sans+Pro:200|Waiting+for+the+Sunrise&display=swap"
+        rel="stylesheet">
+    <title>Contactformulier</title>
+</head>
+
+<body>
+    <header>
+        <h1>We willen alles van je weten!</h1>
+    </header>
+    <main>
+        <div class="intro">
+            <h2>Zelfs de meest triviale informatie is voor ons van belang</h2>
+            <p>Voor iedereen van 8 tot 88 jaar.
+                Ga snel naar onderstaande vragen en maak ons blij!</p>
+        </div>
+        <form name="Contactformulier" method="POST" data-netlify="true">
+            <p>
+                <label>Je naam:</label><br>
+                <input type="text" name="naam">
+            </p>
+            <p>
+                <label>Je emailadres:</label><br>
+                <input type="email" name="email">
+            </p>
+            <p>
+                <label>Je telefoonnummer:</label><br>
+                <input type="tel" name="phone">
+            </p>
+            <p>
+                <label>Wat is je leeftijd?</label><br>
+                <input type="number" name="quantity" min="8" max="88">
+            </p>
+            <p class="gender">Wat ben je?<br>
+                <input type="radio" name="gender" value="mens">
+                <label for="mens">Mens</label><br>
+                <input type="radio" name="gender" value="dier">
+                <label for="dier">Dier</label><br>
+                <input type="radio" name="gender" value="plant">
+                <label for="plant">Plant</label><br>
+            </p>
+            <p class="food">
+                <label for="food">Wat eet je het liefst?</label><br>
+                <input type="checkbox" name="food" value="frans">
+                <label for="frans">Franse cuisine</label><br>
+                <input type="checkbox" name="food" value="italiaans">
+                <label for="italiaans">Italiaanse cuisine</label><br>
+                <input type="checkbox" name="food" value="spaans">
+                <label for="spaans">Spaanse cuisine</label><br>
+                <input type="checkbox" name="food" value="arabisch">
+                <label for="arabisch">Arabische cuisine</label>
+            </p>
+            <p>
+                <label>Wat is je favoriete kleur om te dragen?</label><br>
+                <input type="color" name="color">
+            </p>
+            <p>
+                <label>Vertel iets over jezelf:</label><br>
+                <textarea name="bericht"></textarea><br>
+            </p>
+            <p>
+                <label>Upload hier je favoriete recept:</label><br>
+                <input type="file" name="myfile">
+            </p>
+            <p>
+                <label>Plaats hier de link naar je favoriete recepten website:</label><br>
+                <input type="url" name="website">
+            </p>
+            <p>
+                <button type="reset">Alles wissen</button>
+            </p>
+            <p>
+                <button class="submit" type="submit">Verzenden</button>
+            </p>
+        </form>
+    </main>
+    <footer>
+        <p>© 2020 Femke Lemmens</p>
+    </footer>
+</body>
+
+</html>
