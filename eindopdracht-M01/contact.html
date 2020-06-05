@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/styles.css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Gentium+Basic|Source+Sans+Pro:200|Waiting+for+the+Sunrise&display=swap"
+        rel="stylesheet">
+    <title>FemFabric</title>
+</head>
+
+<body>
+    <div class="grid-container">
+        <nav class="main-nav">
+            <ul class="main-nav-items">
+                <li class="main-nav-item"><a href="index.html">Home</a></li>
+                <li class="main-nav-item"><a href="blog.html">Blog</a></li>
+                <li class="main-nav-item"><a href="fotografie.html">Fotografie</a></li>
+                <li class="main-nav-item"><a href="tassen.html">Tassen</a></li>
+                <li class="main-nav-item"><a href="meubels.html">Meubels</a></li>
+                <li class="main-nav-item"><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <header class="home-header">
+            <img class="home-header-img" src="images/watercolor.png" alt="kleuren">
+            <h1>Ik wil alles van je weten!</h1>
+            <p class="ondertitel">Een formulier om te oefenen met de verschillende mogelijkheden :)
+            </p>
+        </header>
+        <main>
+            <div class="intro">
+                <h2>Zelfs de meest triviale informatie is voor mij van belang</h2>
+                <p>Voor iedereen van 8 tot 88 jaar.
+                    Ga snel naar onderstaande vragen en maak me blij!</p>
+            </div>
+            <form class="contactformulier" name="Contactformulier" method="POST" data-netlify="true">
+                <p>
+                    <label for="naam">Je naam:</label><br>
+                    <input type="text" name="naam" id="naam">
+                </p>
+                <p>
+                    <label for="email">Je emailadres:</label><br>
+                    <input type="email" name="email" id="email">
+                </p>
+                <p>
+                    <label for="phone">Je telefoonnummer:</label><br>
+                    <input type="tel" name="phone" id="phone">
+                </p>
+                <p>
+                    <label for="quantity">Wat is je leeftijd?</label><br>
+                    <input type="number" name="quantity" id="quantity" min="8" max="88">
+                </p>
+                <p class="gender">Wat ben je?<br>
+                    <input type="radio" name="gender" id="mens" value="mens">
+                    <label for="mens">Mens</label><br>
+                    <input type="radio" name="gender" id="dier" value="dier">
+                    <label for="dier">Dier</label><br>
+                    <input type="radio" name="gender" id="plant" value="plant">
+                    <label for="plant">Plant</label><br>
+                </p>
+                <p class="food">
+                    <label for="food">Wat eet je het liefst?</label><br>
+                    <input type="checkbox" name="food" id="frans">
+                    <label for="frans">Franse cuisine</label><br>
+                    <input type="checkbox" name="food" id="italiaans">
+                    <label for="italiaans">Italiaanse cuisine</label><br>
+                    <input type="checkbox" name="food" id="spaans">
+                    <label for="spaans">Spaanse cuisine</label><br>
+                    <input type="checkbox" name="food" id="arabisch">
+                    <label for="arabisch">Arabische cuisine</label>
+                </p>
+                <p>
+                    <label for="color">Wat is je favoriete kleur om te dragen?</label><br>
+                    <input type="color" name="color">
+                </p>
+                <p>
+                    <label for="bio"> Vertel iets over jezelf:</label><br>
+                    <textarea name="bio" id="id"></textarea><br>
+                </p>
+                <p>
+                    <label for="file">Upload hier je favoriete recept:</label><br>
+                    <input type="file" name="file" id="file">
+                </p>
+                <p>
+                    <label for="url">Plaats hier de link naar je favoriete recepten website:</label><br>
+                    <input type="url" name="url" id="url">
+                </p>
+                <p>
+                    <button type="reset">Alles wissen</button>
+                </p>
+                <p>
+                    <button class="submit" type="submit">Verzenden</button>
+                </p>
+            </form>
+        </main>
+        <footer>
+            <a href="mailto:femke_lemmens@hotmail.com">Contact</a><br>
+            <a href="https://www.linkedin.com/in/femke-lemmens/">LinkedIn</a><br>
+            <p>© 2020 Femke Lemmens</p>
+        </footer>
+    </div>
+</body>
+
+</html>
