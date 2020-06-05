@@ -1,0 +1,469 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  height: 1000px;
+  background-color: #e6f4f3;
+  text-align: center;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 1.1rem;
+  color: #060606;
+  margin: 0;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 85px 1fr 1fr 1fr 10px;
+  grid-template-rows: 125px 125px 1fr 100px;
+  grid-template-areas:
+    "n h h h ."
+    "n h h h ."
+    "m m m m ."
+    "f f f f f";
+  overflow: hidden;
+}
+
+.main-nav {
+  grid-area: n;
+  background-color: #a1c2bc;
+}
+
+.main-nav-items {
+  text-align: left;
+  font-size: 1.1rem;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.main-nav-item {
+  list-style: none;
+  padding: 0.6rem;
+  width: 100%;
+  cursor: pointer;
+}
+
+.main-nav-item:hover {
+  background-color: #8aa8a3;
+}
+
+header {
+  grid-area: h;
+  padding: 1.9rem 0;
+  background-color: #8aa8a3;
+  width: 100vw;
+}
+
+.home-header {
+  width: 105%;
+  padding: 1rem 0;
+}
+
+.home-header-img {
+  float: left;
+  margin: 0 1rem;
+  width: 30%;
+}
+
+h1 {
+  font-family: 'Waiting for the Sunrise', cursive;
+  color: #274747;
+  font-size: 3rem;
+  font-weight: normal;
+  line-height: 1;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.header>h1 {
+  text-align: left;
+  margin: 3rem;
+}
+
+h2 {
+  color: #8aa8a3;
+}
+
+h3 {
+  color: #8aa8a3;
+  margin: 0 0 10px;
+}
+
+a {
+  text-decoration: none;
+  color: #274747;
+}
+
+.ondertitel {
+  font-size: 1rem;
+  color: white;
+  padding: 1rem 2rem;
+  margin: 0;
+}
+
+main {
+  grid-area: m;
+  border-bottom: solid 1px #274747;
+  margin-bottom: 0.3rem;
+}
+
+#profiel {
+  display: flex;
+  justify-content: left;
+  border-bottom: solid 1px #274747;
+}
+
+.profiel-img {
+  align-self: center;
+  padding: 0.25rem;
+  Border: solid 2px #8aa8a3;
+  border-radius: 25px;
+  width: 150px;
+  max-height: 150px;
+  margin: 0.4rem 2rem;
+}
+
+.profiel-text {
+  font-size: 1rem;
+  Margin: 1rem 0 1rem 4rem;
+}
+
+.profiel-text>h2 {
+  margin: 0.2rem;
+}
+
+.hobbies-text {
+  line-height: 1.5;
+  text-align: center;
+  width: 70%;
+  margin: auto;
+}
+
+.hobbies-items {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.hobbies-item {
+  list-style: none;
+}
+
+.hobbies-img {
+  margin: auto;
+  padding: 0.25rem;
+  Border: solid 2px #8aa8a3;
+  border-radius: 25px;
+  width: 300px;
+}
+
+.horizontal-img {
+  display: block;
+  margin: auto;
+  width: 200px;
+}
+
+figcaption {
+  margin-bottom: 1.25rem;
+}
+
+footer {
+  grid-area: f;
+  grid-row-end: -1;
+  height: 100px;
+  padding: 1rem 0;
+  background-color: #8aa8a3;
+}
+
+/*Blogpagina*/
+.blog-tekst {
+  text-align: left;
+  padding: 1rem 3rem;
+  margin-top: 0.5rem;
+  border-top: solid 1px #274747;
+  width: 105%;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding-top: 75%;
+  /* 4:3 Aspect Ratio */
+}
+
+.responsive-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+}
+
+.blog-date {
+  color: grey;
+  font-size: 0.9rem;
+}
+
+/*Fotografiepagina*/
+.fotografie-main {
+  width: 100vw;
+}
+
+.foto-flex {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin: 1rem;
+  flex: 1;
+}
+
+.flex-img {
+  height: 400px;
+  margin: 0.5rem;
+  flex: 25rem;
+  width: 100%;
+  max-width: 25rem;
+}
+
+.foto-tegel {
+  width: 100%;
+  height: 400px;
+}
+
+/*Tassenpagina*/
+.color1 {
+  background-color: #f8c993;
+  border: none;
+}
+
+.color1>p {
+  font-size: 1.5rem;
+  padding: 2rem;
+}
+
+/*Meubelpagina*/
+
+.meubel-text {
+  padding: 1rem;
+}
+
+.meubel-text>p {
+  font-size: 1.2rem;
+  margin: 1rem 3rem;
+}
+
+/* Contactpagina*/
+.intro {
+  text-align: center;
+  margin: 1rem 0.5rem 3rem 0.5rem;
+}
+
+.intro>h2 {
+  color: #f7a64a;
+}
+
+.contactformulier {
+  text-align: left;
+  padding-left: 30%;
+  line-height: 1.5;
+}
+
+.submit {
+  background-color: #ffb969;
+  border: solid 1px #f88705;
+  border-radius: 4px;
+  padding: 0.6rem;
+  width: 100px;
+}
+
+/* Media Queries Tablet*/
+
+@media (min-width: 600px) {
+  body {
+    font-size: 1rem;
+  }
+
+  .home-header>h1 {
+    margin: 2rem 2rem 0;
+  }
+
+  .ondertitel {
+    margin-right: 1rem;
+  }
+
+  /*Blogpagina*/
+
+  .video-container {
+    width: 90%;
+    margin: auto;
+  }
+
+  .responsive-iframe {
+    width: 90%;
+    height: 70%;
+  }
+}
+
+/*Media Queries desktop*/
+
+@media (min-width: 1024px) {
+  .grid-container {
+    grid-template-columns: 75px 1fr 1fr 1fr 75px;
+    grid-template-rows: 40px 400px 1fr 100px;
+    grid-template-areas:
+      "n n n n ."
+      ". h h h ."
+      ". m m m ."
+      "f f f f f";
+  }
+
+  .grid-container-hobbies {
+    grid-template-rows: 40px 200px 1fr 100px;
+  }
+
+  .header {
+    width: 100%;
+  }
+
+  .main-nav {
+    position: fixed;
+    top: 0;
+  }
+
+  .main-nav-items {
+    display: flex;
+    flex-direction: row;
+    height: 40px;
+    padding-left: 12%;
+    width: 100vw;
+    background-color: #e6f4f3;
+  }
+
+  .main-nav-item {
+    text-align: center;
+    width: 100px;
+  }
+
+  .home-header {
+    justify-self: center;
+    grid-column: 2 / 5;
+    max-width: 1400px;
+    margin: 0;
+    padding: 3rem 0 3rem;
+  }
+
+  .home-header>h1 {
+    line-height: 1;
+  }
+
+  .header {
+    height: 200px;
+  }
+
+  .header>h1 {
+    margin: 0 2rem;
+  }
+
+  h1 {
+    font-size: 4rem;
+    line-height: 2;
+  }
+
+  .ondertitel {
+    font-size: 1.25rem;
+  }
+
+  #profiel {
+    height: 310px;
+    width: 900px;
+    margin: 0 auto 2rem;
+  }
+
+  .profiel-text {
+    Margin: 4rem;
+  }
+
+  .profiel-img {
+    align-self: flex-start;
+    margin: 1rem 2rem;
+    width: 280px;
+    max-height: 280px;
+  }
+
+  .hobbies {
+    line-height: 2;
+  }
+
+  .hobbies-items {
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 2rem;
+  }
+
+  .hobbies-img {
+    width: 150px;
+  }
+
+  .horizontal-img {
+    width: 300px;
+  }
+
+  /*Blogpagina*/
+  .flex-blog {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1rem;
+    padding-top: 2rem;
+    height: 700px;
+    border-top: solid 1px #274747;
+  }
+
+  .blog-tekst {
+    max-width: 50%;
+    padding: 1rem;
+    border: none;
+  }
+
+  .video-container {
+    width: 100%;
+  }
+
+  .responsive-iframe {
+    width: 100%;
+    height: 50%;
+  }
+
+  /*Fotografiepagina*/
+  .fotografie-main {
+    max-width: 1400px;
+    margin: 0 auto 2rem;
+  }
+
+  .flex-img {
+    height: 300px;
+    margin: 0.5rem;
+    flex: 18.75rem;
+    width: 50%;
+    max-width: 18.75rem;
+  }
+
+  .foto-tegel {
+    width: 100%;
+    height: 300px;
+  }
+
+  /*Tassenpagina*/
+  .color1>p {
+    font-size: 1.2rem;
+  }
+
+  /*Meubelpagina*/
+  .meubel-flex {
+    width: 900px;
+    margin: 0 auto 2rem;
+  }
+
+}
