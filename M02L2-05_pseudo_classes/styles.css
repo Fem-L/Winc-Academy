@@ -1,0 +1,67 @@
+body {
+    height: 600px;
+    width: 600px;
+}
+
+/* Deel 1*/
+.een:hover {
+    color: lightblue;
+    font-weight: bold;
+}
+
+.twee:active {
+    color: red;
+    font-style: italic;
+}
+
+.drie:visited {
+    color: rgb(255, 230, 0);
+}
+
+.vier {
+    color: green;
+    font-size: 20px;
+}
+
+.container {
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+/* Deel 2 */
+ul {
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    text-decoration: none;
+    list-style: none;
+    background-color: darkcyan;
+}
+
+li a {
+    text-decoration: none;
+    color: white;
+}
+
+li a:hover {
+    padding: 0 1rem;
+    background-color: lightskyblue;
+    color: black;
+}
+
+li:first-child {
+    align-self: flex-start;
+}
+
+li input:focus {
+    border: solid 6px aqua;
+    outline: none;
+}
+
+.currentPage {
+    background-color: rgb(61, 88, 104);
+
+    padding: 0 1rem;
+}
