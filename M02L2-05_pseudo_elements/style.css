@@ -1,0 +1,60 @@
+body {
+    background: #231F20;
+    text-align: center;
+}
+
+h1 {
+    color: #FFF;
+    font-family: 'Oswald';
+    font-weight: 700;
+    position: relative;
+    margin: 30px auto;
+    text-transform: uppercase;
+    width: 550px;
+}
+
+h1::before {
+    content: '';
+    background-color: #4A90E2;
+    display: inline-block;
+    width: 25px;
+    height: 30px;
+    border-radius: 15px 0 0 15px;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+h1::after {
+    content: '';
+    background-color: #4A90E2;
+    display: inline-block;
+    width: 25px;
+    height: 30px;
+    border-radius: 0 15px 15px 0;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+/*
+selector voor het linker halve cirkeltje,
+selector voor het rechter halve cirkeltje {
+    // gezamelijke eigenschappen van de halve cirkels: 
+    // - het is Winc blauw ... background:;
+    // - content is empty string 
+    // - display... block? Inline-block?
+    // - aanta px hoog 
+    // - aantal px breed 
+    // - absolute positie 
+}
+
+selector voor het linker halve cirkeltje {
+    // border radius, generator: <https://www.cssmatic.com/border-radius> 
+    // Positioneer je halve rondje met left en top
+}
+
+selector voor het rechter halve cirkeltje {
+    // border radius, generator: <https://www.cssmatic.com/border-radius> 
+    // Positioneer je halve rondje met left en top 
+}*/
