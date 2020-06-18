@@ -1,0 +1,12 @@
+$backgroundColorDark: #97d279;
+$backgroundColorLight: #c0eea9;
+$standardPadding: 20px;
+
+@mixin textStyle($padding) {
+  max-width: 700px;
+  text-align: center;
+  text-align: justify;
+  line-height: 1.4em;
+  padding: $standardPadding;
+  $padding: 1em;
+}
