@@ -1,4 +1,105 @@
 @import './constants';
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,500,700');
+
+/* Global */
+* {
+  box-sizing: border-box;
+}
+body {
+  color: $colorDarkestGreen;
+  margin: 0;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300;
+  background-color: $colorVeryLightGreen;
+}
+h1 {
+  font-size: 1.7em;
+  font-weight: 700;
+  line-height: 1.5em;
+  text-transform: uppercase;
+}
+h2 {
+  text-transform: uppercase;
+}
+h4 {
+  font-size: 0.8em;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+h6 {
+  font-weight: 500;
+}
+a {
+  text-decoration: none;
+  color: $colorDarkestGreen;
+}
+ul {
+  list-style: none;
+}
+.title {
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-bottom: 1em;
+}
+.title.title-right {
+  justify-content: flex-end;
+}
+.title__line {
+  width: 3em;
+  height: 1px;
+  background-color: $colorBlack;
+  margin-right: 1em;
+}
+.line.line-right {
+  order: 2;
+  margin-right: 0;
+  margin-left: 1em;
+}
+.btn {
+  display: inline-block;
+  padding: 0.5em 1.5em;
+  border: solid 1px $colorBlack;
+  transition: all 0.3s ease-in;
+}
+.btn:hover,
+.btn:focus {
+  transform: translate(0px, -2px);
+  -webkit-box-shadow: 0px 10px 7px -9px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 10px 7px -9px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 10px 7px -9px rgba(0, 0, 0, 0.75);
+  transition: all 0.3s ease-out;
+}
+form {
+  display: flex;
+}
+form input:first-child {
+  flex: 1 0 80%;
+  background-color: transparent;
+}
+form input:last-child {
+  flex: 1 0 20%;
+  border-left: 0;
+  cursor: pointer;
+  background-color: $colorLightGreen;
+  transition: all 0.25s ease;
+}
+#submit:hover {
+  background-color: $colorBlack;
+  color: $colorWhite;
+  transition: all 0.25s ease;
+  -webkit-box-shadow: 0px 10px 7px -9px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 10px 7px -9px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 10px 7px -9px rgba(0, 0, 0, 0.75);
+}
+input {
+  padding: 10px;
+  border: 1px solid $colorBlack;
+}
+
+/* Pas alleen de onderstaande regels aan */
 
 /* Header */
 .header {
@@ -8,7 +109,7 @@
   width: 100%;
   z-index: 1;
   padding: $standardPadding;
-  background-color: $backgroundColorLight;
+  background-color: $colorLightGreen;
   height: 120px;
   -webkit-box-shadow: 0px 10px 7px -9px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 10px 7px -9px rgba(0, 0, 0, 0.75);
@@ -26,13 +127,13 @@
   display: flex;
   height: 100vh;
   align-items: center;
-  background: $backgroundColorDark;
+  background: $colorDarkGreen;
   img {
     display: block;
     height: auto;
     width: 15.5em;
   }
-  .hero__text {
+  &__text {
     padding: 0 2em 7.5em;
   }
 }
@@ -40,53 +141,53 @@
 /* Featured Section */
 .featured {
   padding: $standardPadding;
-  .featured__wrapper {
+  &__wrapper {
     display: flex;
     flex-wrap: wrap;
     img {
       width: 300px;
     }
   }
-  .featured__text {
+  &__text {
     @include textStyle(padding-top);
   }
 }
 
 /* About Section */
 .about {
-  background-color: $backgroundColorDark;
+  background-color: $colorDarkGreen;
   padding: $standardPadding;
-  .about__wrapper {
+  &__wrapper {
     display: flex;
   }
-  .about__text {
+  &__text {
     @include textStyle(padding-bottom);
   }
-  .about__video-wrapper {
+  &__video-wrapper {
     position: relative;
     padding-bottom: 33.25%;
     overflow: hidden;
     align-self: center;
     flex: 2 0 55%;
     margin: 1.4em 0;
-  }
-  iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    & iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 
 /* Contact Section */
 .contact {
   padding: $standardPadding;
-  .contact__wrapper .contact {
+  &__wrapper .contact {
     display: flex;
     flex-wrap: wrap;
   }
-  .contact__form-wrapper {
+  &__form-wrapper {
     padding: $standardPadding;
   }
 }

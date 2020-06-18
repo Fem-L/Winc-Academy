@@ -1,5 +1,9 @@
-$backgroundColorDark: #97d279;
-$backgroundColorLight: #c0eea9;
+$colorDarkGreen: #97d279;
+$colorLightGreen: #c0eea9;
+$colorDarkestGreen: #090b08;
+$colorVeryLightGreen: #ecffe9;
+$colorBlack: #000;
+$colorWhite: #fff;
 $standardPadding: 20px;
 
 @mixin textStyle($padding) {
