@@ -1,0 +1,39 @@
+@mixin vierkant($backgroundColor) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 200px;
+  margin: auto;
+  margin-bottom: 20px;
+  background-color: $backgroundColor;
+}
+
+@mixin rond($backgroundColor) {
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  background-color: $backgroundColor;
+}
+
+body {
+  background-color: rgb(245, 199, 199);
+}
+
+h1 {
+  text-align: center;
+  color: rgb(59, 8, 8);
+}
+
+.vierkant {
+  @include vierkant(rgb(243, 182, 14));
+  &__rond {
+    @include rond(white);
+  }
+  &--modifier {
+    @include vierkant(white);
+  }
+  &__rond--modifier {
+    @include rond(rgb(243, 182, 14));
+  }
+}
