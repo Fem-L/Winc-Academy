@@ -5,10 +5,7 @@
 
 for (i = 1; i <= 10; i++) {
   for (j = 1; j <= 10; j++) {
-    let y = i;
-    let x = j;
-    let z = x * i;
-    let uitkomst = j + 'x' + y + `=` + z;
+    let uitkomst = j + 'x' + i + `=` + i * j;
     console.log(uitkomst);
   }
 }
