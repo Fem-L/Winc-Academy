@@ -5,3 +5,9 @@ const ikRockArrowFunctions = () => {
 };
 
 ikRockArrowFunctions();
+
+//DEEL B
+
+const fivePlusSeven = () => 5 + 7;
+
+fivePlusSeven();
