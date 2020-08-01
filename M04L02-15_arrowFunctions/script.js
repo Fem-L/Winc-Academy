@@ -30,7 +30,7 @@ console.log(myFunction(1, 3)); //4
 /*Schrijf een arrow function op 1 regel, die de parameter a behoudt, 
 en altijd a plus 5 returned. Noem de functie addFive.*/
 
-const addFive = (a) => a + 5;
+const addFive = (a) => a + 5; //hij slaat automatisch op met haakjes
 
 console.log(addFive(2)); //7
 
