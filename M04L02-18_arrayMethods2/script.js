@@ -27,7 +27,7 @@ console.log(doubleArrayValues); // result should be [2, 4, 6]
 const containsNumbers = [1, 4, 3, 6, 9, 7, 11];
 const containsLowerNumbers = [1, 2, 1, 2, 1, 2];
 
-const containsNumberBiggerThan10 = (e) => e > 10; //functie die checkt eof een element het een number boven de 10 is
+const containsNumberBiggerThan10 = (e) => e > 10; //functie die checkt of een element het een number boven de 10 is
 
 console.log(containsNumbers.some(containsNumberBiggerThan10)); // result should be true
 console.log(containsLowerNumbers.some(containsNumberBiggerThan10)); // result should be false
