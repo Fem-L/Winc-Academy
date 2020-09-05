@@ -28,7 +28,7 @@ makeRequest("Google")
   })
   .catch((error) => console.log(error));
 */
-//Asunc await methode
+//Async await methode
 
 async function doWork() {
   try {
