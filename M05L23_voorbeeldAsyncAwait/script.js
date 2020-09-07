@@ -1,3 +1,4 @@
+//Promise (deze schrijven hoort bij backend)
 function makeRequest(location) {
   return new Promise((resolve, reject) => {
     console.log(`making Request to ${location}`);
@@ -16,7 +17,8 @@ function procesRequest(response) {
   });
 }
 
-//Promise methode
+//Promise methode; (Het aanroepen van de promise is frontend)
+
 /*
 makeRequest("Google")
   .then((response) => {
@@ -28,15 +30,18 @@ makeRequest("Google")
   })
   .catch((error) => console.log(error));
 */
-//Async await methode
 
+//Async await methode
+//await zegt dat de code moet wachten met uitvoeren
 async function doWork() {
   try {
-    const response = await makeRequest("Google");
+    //in try komt alle code die kan falen
+    const response = await makeRequest("Google"); //aanroepen van de eerste functie makeRequest
     console.log("Response received");
-    const processedResponse = await procesRequest(response);
+    const processedResponse = await procesRequest(response); //aanroepen tweede functie processedResponse
     console.log(processedResponse);
   } catch (error) {
+    //catch vangt de code die faalt
     console.log(error);
   }
 }
