@@ -12,111 +12,126 @@ const removeList = () => {
 };
 
 //SorteerFunctie
-const sorteer = (a, b) => {
-  return a - b;
+const sorteer = (resultaat) => {
+  if (resultaat) {
+    return 1;
+  } else {
+    return -1;
+  }
 };
 
 //1: landenlijst
 //FilterFunctie
-let landenLijst = randomPersonData
+let getCountries = randomPersonData
   .map((land) => land.region) //sorteert op de landen
   .sort(); //zet lijst in alfabetische volgorde
-let landen = new Set(landenLijst); //maakt van een array een Set, verwijderd daarmee alle duplicaten
-landenLijst = Array.from(landen); //zet Set om naar array
+let landen = new Set(getCountries); //maakt van een array een Set, verwijderd daarmee alle duplicaten
+getCountries = Array.from(landen); //zet Set om naar array
 
 //plaatsingsFunctie
 const addCountriesToDom = (array) => {
-  array.forEach((landenLijst) => {
+  array.forEach((getCountries) => {
     const listItem = document.createElement("li"); //li element maken
-    const portretImg = document.createElement("img"); // img element maken
     dataList.appendChild(listItem);
-    listItem.innerHTML = `${landenLijst}`;
+    listItem.innerHTML = `${getCountries}`;
   });
 };
 
 //2: steenbokvrouwen
-//FilterFunctie
-const steenbokvrouwen = randomPersonData.filter((person) => {
+
+//Sorteerfuncties
+
+//sorteer deze lijst op voornaam
+// steenbokvrouwen.sort((a, b) => {
+//   if (a.name > b.name) return 1;
+//   else if (b.name > a.name) return -1;
+//   return 0;
+// });
+
+const isFemale = (person) => person.gender === "female";
+const isOver30 = (person) => person.age > 30;
+const sortByName = (woman1, woman2) => sorteer(woman1.name > woman2.name);
+const isSteenbok = (person) => {
   let birthdays = person.birthday.mdy.split("/");
   if (
-    ((birthdays[1] >= 22 && birthdays[0] == 12) ||
-      (birthdays[1] <= 19 && birthdays[0] == 1)) && //-een steenbok zijn (jarig van 22 december t/m 19 januari);
-    person.gender == "female" && //-vrouw zijn
-    person.age >= 30 //-ouder zijn dan 30
-  ) {
+    (birthdays[1] >= 22 && birthdays[0] == 12) ||
+    (birthdays[1] <= 19 && birthdays[0] == 1) //-een steenbok zijn (jarig van 22 december t/m 19 januari);
+  )
     return birthdays;
-  }
-});
-
-//Sorteerfunctie
-//sorteer deze lijst op voornaam
-steenbokvrouwen.sort((a, b) => {
-  if (a.name > b.name) return 1;
-  else if (b.name > a.name) return -1;
-  return 0;
-});
+};
+//FilterFunctie
+const getSteenbokvrouwen = randomPersonData
+  .filter(isFemale)
+  .filter(isOver30)
+  .filter(isSteenbok)
+  .sort(sortByName);
 
 //plaatsingsFunctie
 const addWomenToDom = (array) => {
   array.forEach((randomPersonData) => {
     const listItem = document.createElement("li"); //li element maken
     dataList.appendChild(listItem);
-    listItem.innerHTML = `${randomPersonData.name} ${randomPersonData.surname} `; //laat voor- en achternaam en hun foto zien
+    const textItem = document.createElement("p");
+    listItem.appendChild(textItem);
+    textItem.innerHTML = `${randomPersonData.name} ${randomPersonData.surname} `; //laat voor- en achternaam en hun foto zien
     const portretImg = document.createElement("img"); // img element maken
     listItem.appendChild(portretImg); // portretImg toevoegen aan li element
-    //portretImg.setAttribute("class", "portret-img");
-    //portretImg.setAttribute("src", "https://picsum.photos/200");
+    portretImg.setAttribute("class", "portret-img");
+    portretImg.setAttribute("src", "https://picsum.photos/200");
   });
 };
 
 //3: ouwe creditcards
-//Variabelen
 
+//Sorteerfuncties
+
+const getAdults = (person) => person.age >= 18;
+
+//Functie om datum om te zetten naar losse getallen
+const convertExpDate = (card) => {
+  const creditCardDate = card.credit_card.expiration.split("/");
+  const expYear = creditCardDate[1];
+  const expMonth = creditCardDate[0];
+  card.expDateCreditcard = { expMonth, expYear };
+  return card;
+};
 //Datum van vandaag
-let today;
-today = new Date();
-let jaar = today.getFullYear().toString().split(""); //fulYear geeft 4 nummers
-let thisYear = jaar[2] + jaar[3]; //dit jaar teruggebracht tot twee nummers
+let today = new Date();
+let thisMonth = today.getMonth() + 1;
 
-//FilterFunctie
-const people = randomPersonData.filter((person) => {
-  let creditcardsExpDate = person.credit_card.expiration.split("/");
-  if (
-    (creditcardsExpDate[1] == thisYear || //// De verloopdatum moet in de toekomst liggen (van dit jaar).
-      creditcardsExpDate[1] == parseInt(thisYear) + 1) && //// De verloopdatum moet in het komende jaar liggen.
-    person.age >= 18 // De lijst mag alleen volwassenen bevatten.
-  ) {
-    return creditcardsExpDate; //
-  }
-});
-//console.log(people);
-//Sorteerfunctie //Sorteer de lijst zodat de snelst verlopende creditcards bovenaan staan/////moet nog
-// const sortedPeople = people.filter((person) => {
-//   const creditCardDateArray = people.map((date) =>
-//     date.credit_card.expiration.split("/")
-//   );
-//   console.log("creditCards", creditCardDateArray);
+//Functie om de datum over een jaar te bepalen
+const oneYearFromNow = new Date();
+oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
 
-//   let sortedDate = creditCardDateArray.sort((a, b) => a - b);
-//   console.log("sortedDate", sortedDate);
-//   return sortedDate;
-// });
-// console.log("sortedPeople", sortedPeople);
+//Functie filtert op verloopdatum binnen een jaar
+const expDateWithinYear = (card) => {
+  let year = today.getFullYear().toString().split(""); //fulYear geeft 4 nummers
+  let thisYear = year[2] + year[3]; //dit jaar teruggebracht tot twee nummers
+  let yearAhead = oneYearFromNow.getFullYear().toString().split("");
+  let expYear = yearAhead[2] + yearAhead[3];
+  let creditcardsExpDate = card.credit_card.expiration.split("/");
+  if (creditcardsExpDate[1] === thisYear || creditcardsExpDate[1] === expYear)
+    return creditcardsExpDate;
+};
 
-const creditCardDateArray = people.map((date) =>
-  date.credit_card.expiration.split("/")
-);
-console.log("creditCards", creditCardDateArray);
-const creditCardMonth = creditCardDateArray.map((month) => month[0]);
-let sortedDate = creditCardMonth.sort((a, b) => a - b);
-console.log(sortedDate);
+//Sorteer de lijst zodat de snelst verlopende creditcards bovenaan staan(nog niet gelukt!)
+//functie die sorteert van januari tot december
+const sortByExpMonth = (card1, card2) =>
+  card1.expDateCreditcard.expMonth - card2.expDateCreditcard.expMonth;
+
+const getPeople = randomPersonData
+  .filter(getAdults)
+  .map(convertExpDate)
+  .filter(expDateWithinYear)
+  .sort(sortByExpMonth);
+//console.log(getPeople);
 
 const addPeopleToDom = (array) => {
   array.forEach((randomPersonData) => {
     const listItem = document.createElement("li"); //li element maken
     dataList.appendChild(listItem);
     listItem.setAttribute("class", "people");
-    listItem.innerHTML = `${randomPersonData.name} ${randomPersonData.surname}`; // - voornaam, achternaam
+    listItem.innerHTML = `Naam: ${randomPersonData.name} ${randomPersonData.surname}`; // - voornaam, achternaam
     const phonenumber = document.createElement("li");
     listItem.appendChild(phonenumber);
     phonenumber.setAttribute("class", "people-lijst");
@@ -159,24 +174,23 @@ const addPeopleToDom = (array) => {
 // -iemand mag niet met zichzelf matchen
 
 //switch functie om de verschillende buttons aan te sturen
-const executeClickedButton = (event) => {
-  const filterName = event.target.id;
-  console.log(filterName);
-  const expr = filterName;
+const addListHandler = (event) => {
+  const filterexpMonth = event.target.id;
+  console.log(filterexpMonth);
+  const expr = filterexpMonth;
   switch (expr) {
     case "landenlijst":
       removeList();
-      addCountriesToDom(landenLijst);
-      //console.log("landenLijst", landenLijst);
+      addCountriesToDom(getCountries);
       break;
     case "steenbokvrouwen":
       removeList();
-      addWomenToDom(steenbokvrouwen);
-      //console.log("steenbokvrouwen", steenbokvrouwen);
+      addWomenToDom(getSteenbokvrouwen);
+      console.log("steenbokvrouwen", getSteenbokvrouwen);
       break;
     case "ouwe-creditcards":
       removeList();
-      addPeopleToDom(people);
+      addPeopleToDom(getPeople);
       //console.log("people", people);
       break;
     case "meeste-mensen":
@@ -194,8 +208,8 @@ const executeClickedButton = (event) => {
   }
 };
 
-//eventhandler aan menubtns
+//eventlistener aan menubtns
 
 menuBtns.forEach((btn) => {
-  btn.addEventListener("click", executeClickedButton);
+  btn.addEventListener("click", addListHandler);
 });
