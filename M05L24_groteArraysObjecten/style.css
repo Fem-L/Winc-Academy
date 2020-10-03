@@ -27,3 +27,8 @@ body {
 .people-lijst {
   list-style: none;
 }
+
+.countries {
+  list-style: none;
+  background-color: rgb(194, 250, 245);
+}

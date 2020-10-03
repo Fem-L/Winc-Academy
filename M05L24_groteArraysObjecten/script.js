@@ -20,7 +20,7 @@ const sorteer = (resultaat) => {
   }
 };
 
-//1: landenlijst
+//1: LANDENLIJST
 //FilterFunctie
 let getCountries = randomPersonData
   .map((land) => land.region) //sorteert op de landen
@@ -37,7 +37,7 @@ const addCountriesToDom = (array) => {
   });
 };
 
-//2: steenbokvrouwen
+//2: STEENBOKVROUWEN
 
 //Sorteerfuncties
 
@@ -81,7 +81,7 @@ const addWomenToDom = (array) => {
   });
 };
 
-//3: ouwe creditcards
+//3: OUWE CREDITCARDS
 
 //Sorteerfunctie
 
@@ -133,7 +133,7 @@ const addPeopleToDom = (array) => {
     const listItem = document.createElement("li"); //li element maken
     dataList.appendChild(listItem);
     listItem.setAttribute("class", "people");
-    listItem.innerHTML = `Naam: ${randomPersonData.name} ${randomPersonData.surname}`; // - voornaam, achternaam
+    listItem.innerHTML = `Naam: ${randomPersonData.name} ${randomPersonData.surname}`;
     const phonenumber = document.createElement("li");
     listItem.appendChild(phonenumber);
     phonenumber.setAttribute("class", "people-lijst");
@@ -145,42 +145,39 @@ const addPeopleToDom = (array) => {
   });
 };
 
-//4: meeste mensen
+//4: MEESTE MENSEN
 
 //Functies;
 //Alle landen die voorkomen in de data.
-let countries = randomPersonData.map((country) => country.region);
+const countries = randomPersonData.map((country) => country.region);
 
 // optellen van de duplicaten in een array (stackoverflow)
 const countingPeople = countries.reduce((prev, cur) => {
   prev[cur] = (prev[cur] || 0) + 1;
   return prev;
 }, {});
-//console.log(countingPeople);
-
-//een array met objecten van de resultaten
-const getPeoplePerCoutry = [];
-for (land in countingPeople)
-  getPeoplePerCoutry.push({ land: land, aantal_mensen: countingPeople[land] });
-//console.log(getPeoplePerCoutry);
 
 //SorteerFunctie; De lijst moet zo gesorteerd zijn dat de landen met de meeste mensen bovenaan staan.
-const sortByNumberOfPeople = getPeoplePerCoutry.sort(
-  (a, b) => b.aantal_mensen - a.aantal_mensen
-);
-//console.log(sortByNumberOfPeople);
+const sortByNumberOfPeople = (a, b) => b.aantal_mensen - a.aantal_mensen;
+
+//een array met objecten van de resultaten
+const getPeoplePerCountry = [];
+for (land in countingPeople)
+  getPeoplePerCountry.push({ land: land, aantal_mensen: countingPeople[land] }); //for-in loop
+getPeoplePerCountry.sort(sortByNumberOfPeople);
 
 //plaatsingsfunctie
 // Achter elk land moet komen te staan hoeveel van de mensen in de lijst in dat land wonen.
 const addCountriesToDom2 = (array) => {
-  array.forEach((sortByNumberOfPeople) => {
+  array.forEach((getPeoplePerCountry) => {
     const listItem = document.createElement("li"); //li element maken
     dataList.appendChild(listItem);
-    listItem.innerHTML = `Land: ${sortByNumberOfPeople.land}  (${sortByNumberOfPeople.aantal_mensen})`;
+    listItem.setAttribute("class", "people-country");
+    listItem.innerHTML = `Land: ${getPeoplePerCountry.land}  (${getPeoplePerCountry.aantal_mensen})`;
   });
 };
 
-//5: gemiddelde leeftijd
+//5: GEMIDDELDE LEEFTIJD
 // Als we op de knop voor deze opdracht drukken komt er een lijst met knoppen te staan. De opdracht-knoppen blijven ook staan.
 // Elk van de nieuwe knoppen heeft als naam een land ("Nederland" bijvoorbeeld).
 // Als we dan op één van de landknoppen drukken zien we ergens in de pagina een zin verschijnen
@@ -188,7 +185,22 @@ const addCountriesToDom2 = (array) => {
 // Om die zin te kunnen laten zien moeten we de gemiddelde leeftijd voor dat land berekenen.
 // Rond de gemiddelde leeftijd af naar hele cijfers ( 18.4999 → 18 en 18.5 → 19).
 
-//6: matchmaking
+const addPeopleToDom2 = (array) => {
+  array.forEach((getCountries) => {
+    const listItem = document.createElement("li"); //li element maken
+    dataList.appendChild(listItem);
+    listItem.setAttribute("class", "countries");
+    const button = document.createElement("button");
+    button.setAttribute("id", "countries_button");
+    button.setAttribute("class", "menu_button");
+    listItem.appendChild(button);
+    button.append(`${getCountries}`);
+  });
+};
+
+//const addHandler =
+
+//6: MATCHMAKING
 // Als we op de knop voor deze opdracht drukken zien we een lijst van alle mensen.
 // -de lijst is gesorteerd op voornaam
 // -we willen alleen volwassenen zien
@@ -204,24 +216,6 @@ const addCountriesToDom2 = (array) => {
 // -zien we de aangeklikte persoon bovenaan staan
 // -daaronder zien we een lijst van "matches" van die persoon
 // -iemand mag niet met zichzelf matchen
-// functie om data in de DOM te plaatsen:
-// const addDataToDom = (array) => {
-//   array.forEach((randomPersonData) => {
-//     const listItem = document.createElement("li"); //li element maken
-//     dataList.appendChild(listItem);
-//     const textItem = document.createElement("p");
-//     listItem.appendChild(textItem);
-//     if (array === "getCountries") {
-//       textItem.innerHTML = `${getCountries}`;
-//     } else if (array === "getSteenbokvrouwen") {
-//       textItem.innerHTML = `${randomPersonData.name} ${randomPersonData.surname} `; //laat voor- en achternaam en hun foto zien
-//       const portretImg = document.createElement("img"); // img element maken
-//       listItem.appendChild(portretImg); // portretImg toevoegen aan li element
-//       portretImg.setAttribute("class", "portret-img");
-//       portretImg.setAttribute("src", "https://picsum.photos/200");
-//     }
-//   });
-// };
 
 //switch functie om de verschillende buttons aan te sturen
 const addListHandler = (event) => {
@@ -245,11 +239,16 @@ const addListHandler = (event) => {
       break;
     case "meeste-mensen":
       removeList();
-      addCountriesToDom2(sortByNumberOfPeople);
+      addCountriesToDom2(getPeoplePerCountry);
       break;
     case "gemiddelde-leeftijd":
       removeList();
-
+      addPeopleToDom2(getCountries);
+      const countriesBtns = document.querySelectorAll("#lijst li button");
+      //console.log(countriesBtns);
+      // countriesBtns.forEach((btn) => {
+      //   btn.addEventListener("click", );
+      // });
       break;
     case "matchmaking":
       removeList();
