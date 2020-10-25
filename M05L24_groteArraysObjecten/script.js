@@ -4,13 +4,19 @@ console.log(randomPersonData);
 const menuBtns = document.querySelectorAll("#button-lijst li button"); //nodelist van buttons
 const dataList = document.getElementById("lijst"); //ul is het ouder element
 
-//Functie om datalijsten te verwijderen
+//Functies om datalijsten te verwijderen
 const removeList = () => {
   while (lijst.firstChild) {
     lijst.removeChild(lijst.firstChild);
   }
 };
 
+const removeAnswers = () => {
+  while (answers.firstChild) {
+    answers.removeChild(answers.firstChild);
+    answers.setAttribute("class", "");
+  }
+};
 //Algemene sorteerFunctie
 const sorteer = (resultaat) => {
   if (resultaat) {
@@ -20,7 +26,8 @@ const sorteer = (resultaat) => {
   }
 };
 
-//1: LANDENLIJST
+//1: LANDENLIJST//////////////////////////////////////////////////////////////////////////////////////////////
+
 //FilterFunctie
 let getCountries = randomPersonData
   .map((land) => land.region) //sorteert op de landen
@@ -31,13 +38,14 @@ getCountries = Array.from(landen); //zet Set om naar array
 //plaatsingsFunctie
 const addCountriesToDom = (array) => {
   array.forEach((getCountries) => {
-    const listItem = document.createElement("li"); //li element maken
+    const listItem = document.createElement("li");
     dataList.appendChild(listItem);
+    dataList.setAttribute("class", "lijst");
     listItem.innerHTML = `${getCountries}`;
   });
 };
 
-//2: STEENBOKVROUWEN
+//2: STEENBOKVROUWEN////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //Sorteerfuncties
 
@@ -50,7 +58,7 @@ const addCountriesToDom = (array) => {
 
 const isFemale = (person) => person.gender === "female"; //selecteer vrouwen
 const isOver30 = (person) => person.age > 30; //selecteer boven de 30 jaar
-const sortByName = (woman1, woman2) => sorteer(woman1.name > woman2.name); //sorteer op alfabet
+const sortByName = (person1, person2) => sorteer(person1.name > person2.name); //sorteer op alfabet
 const isSteenbok = (person) => {
   let birthdays = person.birthday.mdy.split("/");
   if (
@@ -69,19 +77,23 @@ const getSteenbokvrouwen = randomPersonData
 //plaatsingsFunctie
 const addWomenToDom = (array) => {
   array.forEach((randomPersonData) => {
-    const listItem = document.createElement("li"); //li element maken
+    const listItem = document.createElement("li");
     dataList.appendChild(listItem);
     const textItem = document.createElement("p");
     listItem.appendChild(textItem);
+    dataList.setAttribute("class", "lijst");
     textItem.innerHTML = `${randomPersonData.name} ${randomPersonData.surname} `; //laat voor- en achternaam en hun foto zien
-    const portretImg = document.createElement("img"); // img element maken
+    const portretImg = document.createElement("img");
     listItem.appendChild(portretImg); // portretImg toevoegen aan li element
     portretImg.setAttribute("class", "portret-img");
     portretImg.setAttribute("src", "https://picsum.photos/200");
+    const birthdate = document.createElement("p");
+    listItem.appendChild(birthdate);
+    birthdate.innerHTML = `Geboortedatum: ${randomPersonData.birthday.dmy}`;
   });
 };
 
-//3: OUWE CREDITCARDS
+//3: OUWE CREDITCARDS//////////////////////////////////////////////////////////////////////////////////////
 
 //Sorteerfunctie
 
@@ -114,7 +126,7 @@ const getExpDateWithinYear = (card) => {
     return creditcardsExpDate;
 };
 
-//Sorteer de lijst zodat de snelst verlopende creditcards bovenaan staan(nog niet gelukt!)
+//Sorteer de lijst zodat de snelst verlopende creditcards bovenaan staan(niet gelukt!)
 //functie die sorteert van januari tot december
 const sortByExpMonth = (card1, card2) =>
   card1.expDateCreditcard.expMonth - card2.expDateCreditcard.expMonth;
@@ -130,8 +142,9 @@ const getPeople = randomPersonData
 //plaatsingfunctie
 const addPeopleToDom = (array) => {
   array.forEach((randomPersonData) => {
-    const listItem = document.createElement("li"); //li element maken
+    const listItem = document.createElement("li");
     dataList.appendChild(listItem);
+    dataList.setAttribute("class", "lijst");
     listItem.setAttribute("class", "people");
     listItem.innerHTML = `Naam: ${randomPersonData.name} ${randomPersonData.surname}`;
     const phonenumber = document.createElement("li");
@@ -145,8 +158,7 @@ const addPeopleToDom = (array) => {
   });
 };
 
-//4: MEESTE MENSEN
-
+//4: MEESTE MENSEN///////////////////////////////////////////////////////////////////////////////////
 //Functies;
 //Alle landen die voorkomen in de data.
 const countries = randomPersonData.map((country) => country.region);
@@ -170,54 +182,174 @@ getPeoplePerCountry.sort(sortByNumberOfPeople);
 // Achter elk land moet komen te staan hoeveel van de mensen in de lijst in dat land wonen.
 const addCountriesToDom2 = (array) => {
   array.forEach((getPeoplePerCountry) => {
-    const listItem = document.createElement("li"); //li element maken
+    const listItem = document.createElement("li");
     dataList.appendChild(listItem);
+    dataList.setAttribute("class", "lijst");
     listItem.setAttribute("class", "people-country");
-    listItem.innerHTML = `Land: ${getPeoplePerCountry.land}  (${getPeoplePerCountry.aantal_mensen})`;
+    listItem.innerHTML = ` ${getPeoplePerCountry.land}  (${getPeoplePerCountry.aantal_mensen})`;
   });
 };
 
-//5: GEMIDDELDE LEEFTIJD
-// Als we op de knop voor deze opdracht drukken komt er een lijst met knoppen te staan. De opdracht-knoppen blijven ook staan.
-// Elk van de nieuwe knoppen heeft als naam een land ("Nederland" bijvoorbeeld).
-// Als we dan op één van de landknoppen drukken zien we ergens in de pagina een zin verschijnen
-// met de tekst "De gemiddelde persoon in {land} is {jaar} oud".
-// Om die zin te kunnen laten zien moeten we de gemiddelde leeftijd voor dat land berekenen.
-// Rond de gemiddelde leeftijd af naar hele cijfers ( 18.4999 → 18 en 18.5 → 19).
+//5: GEMIDDELDE LEEFTIJD///////////////////////////////////////////////////////////////
 
-const addPeopleToDom2 = (array) => {
+//functie om de gemiddelde leeftijd te berekenen
+
+const getAverageAgeOfPeoplePerCountry = (country) => {
+  const peopleFromCountry = randomPersonData.filter(
+    (person) => person.region === country
+  ); //pakt het aantal mensen per land
+
+  const amountOfPeople = peopleFromCountry.length; //pakt de lengte van de array
+
+  const totalAge = peopleFromCountry.reduce(
+    (sum, current) => sum + current.age,
+    0
+  ); //telt de leeftijden van de mensen in de array bij elkaar op
+
+  return Math.round(totalAge / amountOfPeople);
+};
+
+//plaatsingsFunctie
+
+const addButtonsToDom = (array) => {
   array.forEach((getCountries) => {
     const listItem = document.createElement("li"); //li element maken
     dataList.appendChild(listItem);
     listItem.setAttribute("class", "countries");
+    dataList.setAttribute("class", "countries-menu");
     const button = document.createElement("button");
-    button.setAttribute("id", "countries_button");
-    button.setAttribute("class", "menu_button");
+    button.setAttribute("class", "menu_button countries-menu_button");
     listItem.appendChild(button);
     button.append(`${getCountries}`);
   });
 };
 
-//const addHandler =
+//bedieningsfunctie voor nieuwe btnknoppen
 
-//6: MATCHMAKING
+const addCountryBtnHandler = (event) => {
+  removeAnswers();
+  const country = event.target.innerHTML;
+  let average_age = getAverageAgeOfPeoplePerCountry(country);
+  let answers = document.getElementById("answers");
+  answers.setAttribute("class", "answers-style");
+  const tekst = document.createElement("p");
+  answers.appendChild(tekst);
+  tekst.append(
+    `De gemiddelde persoon in ${country} is ${average_age} jaar oud`
+  );
+};
+
+//6: MATCHMAKING////////////////////////////////////////////////////////////////////////////////////
 // Als we op de knop voor deze opdracht drukken zien we een lijst van alle mensen.
-// -de lijst is gesorteerd op voornaam
-// -we willen alleen volwassenen zien
-// -van elke persoon zien we:
-// -voornaam, achternaam
-// -foto
-// -land
-// -leeftijd
-// -sterrenbeeld (Steenbok, Weegschaal etc)
-// Bij elke persoon zien we een knop met als titel "vind matches".
-// Als we op die knop drukken:
-// -verdwijnt de grote lijst met mensen
-// -zien we de aangeklikte persoon bovenaan staan
-// -daaronder zien we een lijst van "matches" van die persoon
-// -iemand mag niet met zichzelf matchen
+//Functie om sterrenbeelden te bepalen
+const ARIES = "Ram";
+const TAURUS = "Stier";
+const GEMINI = "Tweeling";
+const CANCER = "Kreeft";
+const LEO = "Leeuw";
+const VIRGO = "Maagd";
+const LIBRA = "Weegschaal";
+const SCORPIO = "Schorpioen";
+const SAGGITARIUS = "Boogschutter";
+const CAPRICORN = "Steenbok";
+const AQUARIUS = "Waterman";
+const PISCES = "Vissen";
 
-//switch functie om de verschillende buttons aan te sturen
+const getStarSign = (month, day) => {
+  if (month === 1 && day <= 20) return CAPRICORN;
+  if (month === 1 && day >= 21) return AQUARIUS;
+  if (month === 2 && day <= 19) return AQUARIUS;
+  if (month === 2 && day >= 20) return PISCES;
+  if (month === 3 && day <= 20) return PISCES;
+  if (month === 3 && day >= 21) return ARIES;
+  if (month === 4 && day <= 20) return ARIES;
+  if (month === 4 && day >= 21) return TAURUS;
+  if (month === 5 && day <= 20) return TAURUS;
+  if (month === 5 && day >= 21) return GEMINI;
+  if (month === 6 && day <= 21) return GEMINI;
+  if (month === 6 && day >= 22) return CANCER;
+  if (month === 7 && day <= 22) return CANCER;
+  if (month === 7 && day >= 23) return LEO;
+  if (month === 8 && day <= 23) return LEO;
+  if (month === 8 && day >= 24) return VIRGO;
+  if (month === 9 && day <= 21) return VIRGO;
+  if (month === 9 && day >= 22) return LIBRA;
+  if (month === 10 && day <= 22) return LIBRA;
+  if (month === 10 && day >= 23) return SCORPIO;
+  if (month === 11 && day <= 21) return SCORPIO;
+  if (month === 11 && day >= 22) return SAGGITARIUS;
+  if (month === 12 && day <= 21) return SAGGITARIUS;
+  if (month === 12 && day >= 22) return CAPRICORN;
+};
+
+const addStarSign = (person) => {
+  const month = parseInt(person.birthday.dmy.split("/")[1]); // 1..12
+  const day = parseInt(person.birthday.dmy.split("/")[0]); // 1..31
+  person.sign = getStarSign(month, day);
+  return person;
+};
+
+//FilterFunctie
+const getPeopleList = randomPersonData
+  .filter(getAdults) //selecteert boven de 18 jaar, gebruikt van opdracht:3
+  .map(addStarSign); // voegt sterrenbeeld toe
+
+//plaatsingsfunctie
+const addListToDom = (array) => {
+  array.forEach((randomPersonData) => {
+    const listItem = document.createElement("li");
+    dataList.appendChild(listItem);
+    dataList.setAttribute("class", "match-list");
+    listItem.setAttribute("class", "match-people");
+    listItem.innerHTML = `Naam: ${randomPersonData.name} ${randomPersonData.surname}`; // -voornaam, achternaam
+
+    const country = document.createElement("p");
+    listItem.appendChild(country);
+    country.innerHTML = `Land: ${randomPersonData.region}`; // -land
+
+    const age = document.createElement("p");
+    listItem.appendChild(age);
+    age.innerHTML = `Leeftijd: ${randomPersonData.age}`; // -leeftijd
+
+    const birthdate = document.createElement("p");
+    listItem.appendChild(birthdate);
+    birthdate.innerHTML = `Geboortedatum: ${randomPersonData.birthday.dmy}`; //geboortedatum
+
+    const starSign = document.createElement("p");
+    listItem.appendChild(starSign);
+    starSign.setAttribute("class", "starSign");
+    starSign.innerHTML = `Sterrenbeeld: ${randomPersonData.sign}`; //sterrenbeeld
+
+    const button = document.createElement("button");
+    button.setAttribute("class", "match-button");
+    button.dataset.id = `${randomPersonData.credit_card.number}`;
+    button.dataset.parent = `${randomPersonData.sign}`;
+    listItem.appendChild(button);
+    button.append(`Vind matches`); // Bij elke persoon zien we een knop met als titel "vind matches".
+  });
+};
+
+//Bedieningsfunctie voor vind match button
+
+const addMatchesHandler = (event) => {
+  removeList(); // -verdwijnt de grote lijst met mensen
+
+  console.log(event.target);
+  let cardId = event.target.dataset.id; //unieke ID
+  console.log(cardId);
+
+  let signOfTarget = event.target.dataset.parent;
+  console.log(signOfTarget);
+  //Matchfunctie
+  const sameSign = (person) => person.sign === signOfTarget;
+  //const uniekId = (person) => person.credit_card.number !== cardId; de unieke moet nog kleur krjgen
+
+  const getMatchingPeopleList = getPeopleList.filter(sameSign);
+  console.log("getMatchingPeople", getMatchingPeopleList);
+  addListToDom(getMatchingPeopleList); // -daaronder zien we een lijst van "matches" van die persoon
+};
+
+//switch functie om de verschillende buttons aan te sturen/////////////////////////////////////////
 const addListHandler = (event) => {
   const filterName = event.target.id;
   console.log(filterName);
@@ -225,34 +357,41 @@ const addListHandler = (event) => {
   switch (expr) {
     case "landenlijst":
       removeList();
+      removeAnswers();
       addCountriesToDom(getCountries);
       break;
     case "steenbokvrouwen":
       removeList();
+      removeAnswers();
       addWomenToDom(getSteenbokvrouwen);
-      //console.log("steenbokvrouwen", getSteenbokvrouwen);
       break;
     case "ouwe-creditcards":
       removeList();
+      removeAnswers();
       addPeopleToDom(getPeople);
-      //console.log("people", people);
       break;
     case "meeste-mensen":
       removeList();
+      removeAnswers();
       addCountriesToDom2(getPeoplePerCountry);
       break;
     case "gemiddelde-leeftijd":
       removeList();
-      addPeopleToDom2(getCountries);
+      removeAnswers();
+      addButtonsToDom(getCountries);
       const countriesBtns = document.querySelectorAll("#lijst li button");
-      //console.log(countriesBtns);
-      // countriesBtns.forEach((btn) => {
-      //   btn.addEventListener("click", );
-      // });
+      countriesBtns.forEach((btn) => {
+        btn.addEventListener("click", addCountryBtnHandler);
+      });
       break;
     case "matchmaking":
       removeList();
-
+      removeAnswers();
+      addListToDom(getPeopleList);
+      const findMatchBtns = document.querySelectorAll(".match-list li button");
+      findMatchBtns.forEach((btn) => {
+        btn.addEventListener("click", addMatchesHandler);
+      });
       break;
   }
 };
