@@ -174,8 +174,8 @@ const sortByNumberOfPeople = (a, b) => b.aantal_mensen - a.aantal_mensen;
 
 //een array met objecten van de resultaten
 const getPeoplePerCountry = [];
-for (land in countingPeople)
-  getPeoplePerCountry.push({ land: land, aantal_mensen: countingPeople[land] }); //for-in loop
+for (land in countingPeople) // for-in loop
+  getPeoplePerCountry.push({ land: land, aantal_mensen: countingPeople[land] });
 getPeoplePerCountry.sort(sortByNumberOfPeople);
 
 //plaatsingsfunctie
@@ -221,6 +221,7 @@ const addButtonsToDom = (array) => {
     button.setAttribute("class", "menu_button countries-menu_button");
     listItem.appendChild(button);
     button.append(`${getCountries}`);
+    button.addEventListener("click", addCountryBtnHandler);
   });
 };
 
@@ -326,6 +327,7 @@ const addListToDom = (array) => {
     button.dataset.parent = `${randomPersonData.sign}`;
     listItem.appendChild(button);
     button.append(`Vind matches`); // Bij elke persoon zien we een knop met als titel "vind matches".
+    button.addEventListener("click", addMatchesHandler);
   });
 };
 
@@ -334,17 +336,15 @@ const addListToDom = (array) => {
 const addMatchesHandler = (event) => {
   removeList(); // -verdwijnt de grote lijst met mensen
 
-  console.log(event.target);
-  let cardId = event.target.dataset.id; //unieke ID
-  console.log(cardId);
-
+  let cardId = event.target.dataset.id; //unieke ID ophalen
   let signOfTarget = event.target.dataset.parent;
-  console.log(signOfTarget);
+  let cardSelf = event.target;
+  console.log(cardSelf);
   //Matchfunctie
   const sameSign = (person) => person.sign === signOfTarget;
-  //const uniekId = (person) => person.credit_card.number !== cardId; de unieke moet nog kleur krjgen
+  const uniekId = (person) => person.credit_card.number !== cardId;
 
-  const getMatchingPeopleList = getPeopleList.filter(sameSign);
+  const getMatchingPeopleList = getPeopleList.filter(sameSign).filter(uniekId);
   console.log("getMatchingPeople", getMatchingPeopleList);
   addListToDom(getMatchingPeopleList); // -daaronder zien we een lijst van "matches" van die persoon
 };
@@ -352,7 +352,6 @@ const addMatchesHandler = (event) => {
 //switch functie om de verschillende buttons aan te sturen/////////////////////////////////////////
 const addListHandler = (event) => {
   const filterName = event.target.id;
-  console.log(filterName);
   const expr = filterName;
   switch (expr) {
     case "landenlijst":
@@ -379,19 +378,11 @@ const addListHandler = (event) => {
       removeList();
       removeAnswers();
       addButtonsToDom(getCountries);
-      const countriesBtns = document.querySelectorAll("#lijst li button");
-      countriesBtns.forEach((btn) => {
-        btn.addEventListener("click", addCountryBtnHandler);
-      });
       break;
     case "matchmaking":
       removeList();
       removeAnswers();
       addListToDom(getPeopleList);
-      const findMatchBtns = document.querySelectorAll(".match-list li button");
-      findMatchBtns.forEach((btn) => {
-        btn.addEventListener("click", addMatchesHandler);
-      });
       break;
   }
 };
