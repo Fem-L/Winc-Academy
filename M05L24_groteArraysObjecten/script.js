@@ -107,6 +107,7 @@ const convertExpDate = (card) => {
   card.expDateCreditcard = { expMonth, expYear };
   return card;
 };
+
 //Datum van vandaag
 let today = new Date();
 let thisMonth = today.getMonth() + 1;
@@ -121,23 +122,55 @@ const getExpDateWithinYear = (card) => {
   let thisYear = year[2] + year[3]; //dit jaar teruggebracht tot twee nummers
   let yearAhead = oneYearFromNow.getFullYear().toString().split("");
   let expYear = yearAhead[2] + yearAhead[3];
+
   let creditcardsExpDate = card.credit_card.expiration.split("/");
   if (creditcardsExpDate[1] === thisYear || creditcardsExpDate[1] === expYear)
     return creditcardsExpDate;
 };
 
-//Sorteer de lijst zodat de snelst verlopende creditcards bovenaan staan(niet gelukt!)
+//Sorteer de lijst zodat de snelst verlopende creditcards bovenaan staan
 //functie die sorteert van januari tot december
-const sortByExpMonth = (card1, card2) =>
-  card1.expDateCreditcard.expMonth - card2.expDateCreditcard.expMonth;
+
+const sortByExpMonth = (card1, card2) => {
+  if (
+    parseInt(card1.expDateCreditcard.expMonth) >
+    parseInt(card2.expDateCreditcard.expMonth)
+  ) {
+    return 1;
+  } else if (
+    parseInt(card1.expDateCreditcard.expMonth) ===
+    parseInt(card2.expDateCreditcard.expMonth)
+  ) {
+    return 0;
+  } else {
+    return -1;
+  }
+};
+
+//functie sorteert op jaar
+const sortByExpYear = (card1, card2) => {
+  if (
+    parseInt(card1.expDateCreditcard.expYear) >
+    parseInt(card2.expDateCreditcard.expYear)
+  ) {
+    return 1;
+  } else if (
+    parseInt(card1.expDateCreditcard.expYear) ===
+    parseInt(card2.expDateCreditcard.expYear)
+  ) {
+    return 0;
+  } else {
+    return -1;
+  }
+};
 
 //FilterFunctie
 const getPeople = randomPersonData
   .filter(getAdults)
   .map(convertExpDate)
   .filter(getExpDateWithinYear)
-  .sort(sortByExpMonth);
-//console.log(getPeople);
+  .sort(sortByExpMonth)
+  .sort(sortByExpYear);
 
 //plaatsingfunctie
 const addPeopleToDom = (array) => {
@@ -243,44 +276,45 @@ const addCountryBtnHandler = (event) => {
 //6: MATCHMAKING////////////////////////////////////////////////////////////////////////////////////
 // Als we op de knop voor deze opdracht drukken zien we een lijst van alle mensen.
 //Functie om sterrenbeelden te bepalen
-const ARIES = "Ram";
-const TAURUS = "Stier";
-const GEMINI = "Tweeling";
-const CANCER = "Kreeft";
-const LEO = "Leeuw";
-const VIRGO = "Maagd";
-const LIBRA = "Weegschaal";
-const SCORPIO = "Schorpioen";
-const SAGGITARIUS = "Boogschutter";
-const CAPRICORN = "Steenbok";
-const AQUARIUS = "Waterman";
-const PISCES = "Vissen";
+const RAM = "Ram";
+const STIER = "Stier";
+const TWEELING = "Tweeling";
+const KREEFT = "Kreeft";
+const LEEUW = "Leeuw";
+const MAAGD = "Maagd";
+const WEEGSCHAAL = "Weegschaal";
+const SCHORPIOEN = "Schorpioen";
+const BOOGSCHUTTER = "Boogschutter";
+const STEENBOK = "Steenbok";
+const WATERMAN = "Waterman";
+const VISSEN = "Vissen";
+let personToMatch;
 
 const getStarSign = (month, day) => {
-  if (month === 1 && day <= 20) return CAPRICORN;
-  if (month === 1 && day >= 21) return AQUARIUS;
-  if (month === 2 && day <= 19) return AQUARIUS;
-  if (month === 2 && day >= 20) return PISCES;
-  if (month === 3 && day <= 20) return PISCES;
-  if (month === 3 && day >= 21) return ARIES;
-  if (month === 4 && day <= 20) return ARIES;
-  if (month === 4 && day >= 21) return TAURUS;
-  if (month === 5 && day <= 20) return TAURUS;
-  if (month === 5 && day >= 21) return GEMINI;
-  if (month === 6 && day <= 21) return GEMINI;
-  if (month === 6 && day >= 22) return CANCER;
-  if (month === 7 && day <= 22) return CANCER;
-  if (month === 7 && day >= 23) return LEO;
-  if (month === 8 && day <= 23) return LEO;
-  if (month === 8 && day >= 24) return VIRGO;
-  if (month === 9 && day <= 21) return VIRGO;
-  if (month === 9 && day >= 22) return LIBRA;
-  if (month === 10 && day <= 22) return LIBRA;
-  if (month === 10 && day >= 23) return SCORPIO;
-  if (month === 11 && day <= 21) return SCORPIO;
-  if (month === 11 && day >= 22) return SAGGITARIUS;
-  if (month === 12 && day <= 21) return SAGGITARIUS;
-  if (month === 12 && day >= 22) return CAPRICORN;
+  if (month === 1 && day <= 20) return STEENBOK;
+  if (month === 1 && day >= 21) return WATERMAN;
+  if (month === 2 && day <= 19) return WATERMAN;
+  if (month === 2 && day >= 20) return VISSEN;
+  if (month === 3 && day <= 20) return VISSEN;
+  if (month === 3 && day >= 21) return RAM;
+  if (month === 4 && day <= 20) return RAM;
+  if (month === 4 && day >= 21) return STIER;
+  if (month === 5 && day <= 20) return STIER;
+  if (month === 5 && day >= 21) return TWEELING;
+  if (month === 6 && day <= 21) return TWEELING;
+  if (month === 6 && day >= 22) return KREEFT;
+  if (month === 7 && day <= 22) return KREEFT;
+  if (month === 7 && day >= 23) return LEEUW;
+  if (month === 8 && day <= 23) return LEEUW;
+  if (month === 8 && day >= 24) return MAAGD;
+  if (month === 9 && day <= 21) return MAAGD;
+  if (month === 9 && day >= 22) return WEEGSCHAAL;
+  if (month === 10 && day <= 22) return WEEGSCHAAL;
+  if (month === 10 && day >= 23) return SCHORPIOEN;
+  if (month === 11 && day <= 21) return SCHORPIOEN;
+  if (month === 11 && day >= 22) return BOOGSCHUTTER;
+  if (month === 12 && day <= 21) return BOOGSCHUTTER;
+  if (month === 12 && day >= 22) return STEENBOK;
 };
 
 const addStarSign = (person) => {
@@ -338,14 +372,16 @@ const addMatchesHandler = (event) => {
 
   let cardId = event.target.dataset.id; //unieke ID ophalen
   let signOfTarget = event.target.dataset.parent;
-  let cardSelf = event.target;
-  console.log(cardSelf);
+
+  //const personToMatch = event.target.parentElement;
+  //console.log(personToMatch);
+
   //Matchfunctie
   const sameSign = (person) => person.sign === signOfTarget;
   const uniekId = (person) => person.credit_card.number !== cardId;
 
   const getMatchingPeopleList = getPeopleList.filter(sameSign).filter(uniekId);
-  console.log("getMatchingPeople", getMatchingPeopleList);
+
   addListToDom(getMatchingPeopleList); // -daaronder zien we een lijst van "matches" van die persoon
 };
 

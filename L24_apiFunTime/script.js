@@ -1,20 +1,20 @@
-const waitingForJoke = async () => {
+const waitingForPokemon = async () => {
   try {
-    const jokeForDom = document.getElementById("joke"); //div element is parent voor img element
-    const getjoke = await getJokeFromApi(); //object
-    //const genresList = getGenres.genres; //van object naar array
+    const pokemonForDom = document.getElementById("pokemon"); //div element is parent voor img element
+    const getPokemon = await getPokemonFromApi(); //object
+    console.log("getPokemon =", getPokemon);
     //functie om listItems te plaatsen in de DOM
-    // const addJokeToDom =
-    //     let listItem = document.createElement("img"); //img element maken
-    //     movieGenres
-    //       .appendChild(listItem) //li toevoegen aan ul element
-    //       .append(`Genre naam: ${genresList.name} id: ${genresList.id}`);
-    //   });
-    // };
-    // addListToDom(genresList);
+    const addPokemonToDom = () => {
+      const pokemonText = document.createElement("p"); //p element maken
+      pokemonForDom
+        .appendChild(pokemonText) //p toevoegen aan div element
+        .append(` ${getPokemon}`);
+    };
+
+    addPokemonToDom(getPokemon);
   } catch (error) {
     console.log(error);
   }
 };
 
-waitingForJoke();
+waitingForPokemon();
